@@ -6,7 +6,7 @@
 /*   By: mrolain <mrolain@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:29:00 by mrolain           #+#    #+#             */
-/*   Updated: 2024/05/14 14:30:11 by mrolain          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:33:12 by mrolain          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ static int	count_nb(unsigned int n)
 {
 	int	i;
 
-	i = 0;
+	if (n == 0)
+		i = 1;
+	else
+		i = 0;
 	while (n != 0)
 	{
 		n /= 10;
@@ -27,26 +30,17 @@ static int	count_nb(unsigned int n)
 
 int	ft_put_unsigned(unsigned int nbr)
 {
-	int		i;
-	int		j;
-	char	*str;
+	int i;
 
 	i = count_nb(nbr);
-	j = count_nb(nbr);
-	str = malloc(sizeof(char) * i + 1);
-	if (!str)
-		return (0);
-	str[i] = '\0';
-	i--;
-	while (i >= 0)
+	if (nbr > 9)
 	{
-		str[i] = (nbr % 10) + 48;
-		nbr /= 10;
-		i--;
+		ft_put_unsigned(nbr / 10);
+		ft_put_unsigned(nbr % 10);
 	}
-	ft_putstr(str);
-	free(str);
-	return (j);
+	else
+		ft_putchar(nbr + 48);
+	return (i);
 }
 
 // int	main()
